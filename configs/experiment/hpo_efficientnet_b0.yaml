@@ -1,0 +1,32 @@
+# @package _global_
+
+# Hyperparameter Optimization for EfficientNet-B0 with pretrained weights
+# To execute: python src/train.py -m hparams_search=efficientnet_b0_optuna experiment=hpo_efficientnet_b0
+
+defaults:
+  - override /data: retina_mnist
+  - override /model: efficientnet_b0_pretrained
+  - override /callbacks: default
+  - override /trainer: mps
+  - override /logger: mlflow
+
+# Experiment metadata
+tags: ["retina-mnist", "efficientnet_b0", "pretrained", "hpo"]
+
+seed: 42
+
+# Trainer configuration (optimized for 8-10 hour overnight run)
+trainer:
+  max_epochs: 100  # Balanced for convergence and speed
+  min_epochs: 30
+
+# Callbacks configuration
+callbacks:
+  early_stopping:
+    patience: 30  # Balanced patience for overnight run
+    monitor: "val/auc"
+    mode: "max"
+
+  model_checkpoint:
+    monitor: "val/auc"
+    mode: "max"

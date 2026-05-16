@@ -1,0 +1,32 @@
+# @package _global_
+
+# Hyperparameter Optimization for ConvNeXt-Tiny with pretrained weights
+# To execute: python src/train.py -m hparams_search=convnext_tiny_optuna experiment=hpo_convnext_tiny
+
+defaults:
+  - override /data: retina_mnist
+  - override /model: convnext_tiny_pretrained
+  - override /callbacks: default
+  - override /trainer: mps
+  - override /logger: mlflow
+
+# Experiment metadata
+tags: ["retina-mnist", "convnext_tiny", "pretrained", "hpo"]
+
+seed: 42
+
+# Trainer configuration (optimized for 8-10 hour overnight run)
+trainer:
+  max_epochs: 100  # Balanced for convergence and speed
+  min_epochs: 30
+
+# Callbacks configuration
+callbacks:
+  early_stopping:
+    patience: 30  # Balanced patience for overnight run
+    monitor: "val/auc"
+    mode: "max"
+
+  model_checkpoint:
+    monitor: "val/auc"
+    mode: "max"

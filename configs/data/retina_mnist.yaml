@@ -1,0 +1,9 @@
+_target_: src.data.retina_mnist_datamodule.RetinaMNISTDataModule
+data_dir: ${paths.data_dir}
+data_file: "retinamnist_224.npz"
+batch_size: 32 # Adjusted for medical images, needs to be divisible by the number of devices
+num_workers: 4 # Number of workers for data loading
+pin_memory: True # Pin memory for faster data transfer to GPU
+image_size: 224
+normalize_mean: [0.485, 0.456, 0.406] # ImageNet mean values
+normalize_std: [0.229, 0.224, 0.225] # ImageNet std values

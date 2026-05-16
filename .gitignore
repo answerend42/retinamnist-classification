@@ -1,0 +1,47 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+*.egg
+dist/
+build/
+
+# Virtual environments
+.venv/
+venv/
+env/
+ENV/
+
+# IDE / OS
+.DS_Store
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Training outputs (too large for GitHub)
+best_models/
+logs/
+outputs/
+multirun/
+
+# Data (too large, use medmnist download instead)
+/data/
+
+# Experiment databases (artifacts from local runs)
+optuna_master.db
+mlflow.db
+
+# Paper figures (generated)
+paper_figures/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Environment
+.env
+.env.local
+
+# Hydra
+.hydra/
